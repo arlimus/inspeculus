@@ -3,7 +3,7 @@ import './inspec-control.js';
 
 class InspecProfile extends LitElement {
   render() {
-    const { profile, error } = this;
+    const { profile, error, enableInput } = this;
 
     let body = '';
     if(profile == null) {
@@ -18,6 +18,11 @@ class InspecProfile extends LitElement {
           ${profile.controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
         </div>
       `
+    }
+
+    let inputEl = ''
+    if(enableInput) {
+      inputEl = html`<input @keyup="${e => this.parseProfile(this, e)}">`
     }
 
     let errorEl = ''
@@ -46,7 +51,7 @@ input {
 </style>
 
 ${errorEl}
-<input @keyup="${e => this.parseProfile(this, e)}">
+${inputEl}
 ${body}
 `
   }
@@ -55,6 +60,7 @@ ${body}
     return {
       profile: { type: Object },
       error: { type: String },
+      enableInput: { type: Boolean },
     }
   }
 
