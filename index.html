@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Huge kudos to the PWA starter kit for this structure -->
+    <!-- https://github.com/Polymer/pwa-starter-kit -->
+
+    <meta charset="utf-8">
+    <title>InSpec profile viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="View InSpec profiles">
+
+    <base href="/">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3f51b5">
+
+    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="InSpec profile viewer">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="InSpec profile viewer">
+
+    <!-- Default twitter cards -->
+    <meta name="twitter:card" content="inspec profile viewer">
+    <meta name="twitter:site" content="#inspec">
+    <meta property="og:type" content="inspec.io">
+    <meta property="og:site_name" content="inspec-profile-viewer">
+
+    <!-- Performance tip: hint to the browser to start the handshake for the fonts site -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <script>
+      // Load and register pre-caching Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('./service-worker.js', {
+            scope: '/',
+          });
+        });
+      }
+
+      // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
+      // https://github.com/reactjs/redux/issues/2907
+      window.process = { env: { NODE_ENV: 'production' } };
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        line-height: 1.5;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      Please enable JavaScript to view this website.
+    </noscript>
+    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="src/inspec-profile.js" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/ruby.min.js"></script>
+
+    <div style="max-width: 800px; margin: auto;">
+      <inspec-profile></inspec-profile>
+    </div>
+    <script>
+      // little helper for lazy peeps ... 
+      window.profile = document.getElementsByTagName('inspec-profile')[0];
+    </script>
+  </body>
+</html>
