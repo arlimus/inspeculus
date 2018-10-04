@@ -33,7 +33,7 @@ ${hljsTheme}
 }
 
 .isOpen-true.control {
-  border: 2px solid var(--color-red);
+  border: 2px solid white;
   border-radius: 3px;
   margin-bottom: 15px;
 }
@@ -46,24 +46,28 @@ ${hljsTheme}
 .critical .summary:hover .impact { color: white; }
 .isOpen-true.critical.control .summary { background-color: var(--color-red); }
 .isOpen-true.critical .summary .impact { color: white; }
+.isOpen-true.critical.control { border-color: var(--color-red); }
 
 .major.control .impact { color: var(--color-orange); }
 .major .summary:hover { background-color: var(--color-orange); }
 .major .summary:hover .impact { color: white; }
 .isOpen-true.major.control .summary { background-color: var(--color-orange); }
 .isOpen-true.major .summary .impact { color: white; }
+.isOpen-true.major.control { border-color: var(--color-orange); }
 
 .minor.control .impact { color: var(--color-yellow); }
 .minor .summary:hover { background-color: var(--color-yellow); }
 .minor .summary:hover .impact { color: white; }
 .isOpen-true.minor.control .summary { background-color: var(--color-yellow); }
 .isOpen-true.minor .summary .impact { color: white; }
+.isOpen-true.minor.control { border-color: var(--color-yellow); }
 
 .info.control .impact { color: var(--color-info); }
 .info .summary:hover { background-color: var(--color-info); }
 .info .summary:hover .impact { color: white; }
 .isOpen-true.info.control .summary { background-color: var(--color-info); }
 .isOpen-true.info .summary .impact { color: white; }
+.isOpen-true.info.control { border-color: var(--color-info); }
 
 .control {
   border: 1px solid #eee;
