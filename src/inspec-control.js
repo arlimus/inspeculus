@@ -22,9 +22,9 @@ class InspecControl extends LitElement {
 ${hljsTheme}
 <style>
 :host {
-  --color-red: #ff3391;
-  --color-orange: #ff6a00;
-  --color-yellow: #ffb100;
+  --color-red: #fc81ad;
+  --color-orange: #926BE7;
+  --color-yellow: #8db5e6;
   --color-info: #666666;
 }
 
