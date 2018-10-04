@@ -39,6 +39,10 @@ h2 {
 input {
   overflow: hidden;
 }
+.controls {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 25px;
+}
 </style>
 
 ${errorEl}

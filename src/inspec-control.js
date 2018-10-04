@@ -10,10 +10,10 @@ function impactClass(impact) {
 
 class InspecControl extends LitElement {
   render() {
-    const { control, hidden } = this;
+    const { control, isOpen } = this;
     let imapctCls = impactClass(control.impact);
     let impactNum = (control.impact*10).toFixed(1); 
-    let toggleBody = () => this.hidden = !this.hidden;
+    let toggleBody = () => this.isOpen = !this.isOpen;
     let code = hljs.highlight("ruby", control.code).value;
     let codeEL = document.createElement("code");
     codeEL.innerHTML = code;
@@ -28,26 +28,32 @@ ${hljsTheme}
 }
 
 .control {
-  padding: 7px 15px;
+  padding: 10px 15px;
+  border: 1px solid #eee;
+  border-bottom: none;
+  background: white;
 }
-.control:hover {
+.isOpen-false.control:hover {
   color: white;
 }
 
+.isOpen-true.control {
+  border: 2px solid var(--color-red);
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+
 .critical.control .impact { color: var(--color-red); }
-.critical.control:hover { background-color: var(--color-red); }
-.critical.control:hover .impact { color: white; }
+.isOpen-false.critical.control:hover { background-color: var(--color-red); }
+.isOpen-false.critical.control:hover .impact { color: white; }
 
 .major.control .impact { color: var(--color-orange); }
-.major.control:hover { background-color: var(--color-orange); }
-.major.control:hover .impact { color: white; }
+.isOpen-false.major.control:hover { background-color: var(--color-orange); }
+.isOpen-false.major.control:hover .impact { color: white; }
 
 .minor.control .impact { color: var(--color-yellow); }
-.minor.control:hover { background-color: var(--color-yellow); }
-.minor.control:hover .impact { color: white; }
-
-.info.control:hover .impact { color: white; }
-.info.control .impact { color: grey; }
+.isOpen-false.minor.control:hover { background-color: var(--color-yellow); }
+.isOpen-false.minor.control:hover .impact { color: white; }
 
 .code {
   background-color: #444;
@@ -69,18 +75,18 @@ pre {
   padding: 10px 0 0 0;
 }
 
-.hidden-true {
+.isOpen-false .body {
   display: none;
 }
 </style>
-<div class="control ${imapctCls}">
+<div class="control ${imapctCls} isOpen-${isOpen}">
   <div class="summary"
     @click="${(e) => toggleBody()}"
   >
     <div class="title">${control.title}</div>
     <div class="impact">${imapctCls} (${impactNum})</div>
   </div>
-  <div class="body hidden-${hidden}">
+  <div class="body">
     <div class="description">${control.desc}</div>
     <div class="code">
 <pre>${codeEL}</pre>
@@ -93,13 +99,13 @@ pre {
   static get properties() {
     return {
       control: { type: Object },
-      hidden: { type: Boolean },
+      isOpen: { type: Boolean },
     }
   }
 
   constructor() {
     super()
-    this.hidden = true;
+    this.isOpen = false;
   }
 }
 window.customElements.define('inspec-control', InspecControl);
