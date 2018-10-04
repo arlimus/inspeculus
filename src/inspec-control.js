@@ -74,14 +74,16 @@ ${hljsTheme}
   border-bottom: none;
   background: white;
 }
+pre {
+  white-space: pre-wrap;
+}
 .code {
-  background-color: #444;
+  background: #444;
   color: white;
   padding: 1em;
   margin: 1em 0 8px 0;
-}
-pre {
-  white-space: pre-wrap;
+  border: none;
+  font-family: monospace;
 }
 
 .summary {
