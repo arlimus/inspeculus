@@ -4,7 +4,7 @@ import { hljsTheme } from './hljs.theme.js';
 function impactClass(impact) {
   if(impact >= 0.7) return 'critical';
   if(impact >= 0.4) return 'major';
-  if(impact >= 0.0) return 'minor';
+  if(impact > 0.0) return 'minor';
   return 'info';
 }
 
@@ -23,17 +23,12 @@ ${hljsTheme}
 <style>
 :host {
   --color-red: #ff3391;
-  --color-orange: #ff8d00;
+  --color-orange: #ff6a00;
   --color-yellow: #ffb100;
+  --color-info: #666666;
 }
 
-.control {
-  padding: 10px 15px;
-  border: 1px solid #eee;
-  border-bottom: none;
-  background: white;
-}
-.isOpen-false.control:hover {
+.summary:hover {
   color: white;
 }
 
@@ -42,19 +37,39 @@ ${hljsTheme}
   border-radius: 3px;
   margin-bottom: 15px;
 }
+.isOpen-true .summary {
+  color: white;
+}
 
 .critical.control .impact { color: var(--color-red); }
-.isOpen-false.critical.control:hover { background-color: var(--color-red); }
-.isOpen-false.critical.control:hover .impact { color: white; }
+.critical .summary:hover { background-color: var(--color-red); }
+.critical .summary:hover .impact { color: white; }
+.isOpen-true.critical.control .summary { background-color: var(--color-red); }
+.isOpen-true.critical .summary .impact { color: white; }
 
 .major.control .impact { color: var(--color-orange); }
-.isOpen-false.major.control:hover { background-color: var(--color-orange); }
-.isOpen-false.major.control:hover .impact { color: white; }
+.major .summary:hover { background-color: var(--color-orange); }
+.major .summary:hover .impact { color: white; }
+.isOpen-true.major.control .summary { background-color: var(--color-orange); }
+.isOpen-true.major .summary .impact { color: white; }
 
 .minor.control .impact { color: var(--color-yellow); }
-.isOpen-false.minor.control:hover { background-color: var(--color-yellow); }
-.isOpen-false.minor.control:hover .impact { color: white; }
+.minor .summary:hover { background-color: var(--color-yellow); }
+.minor .summary:hover .impact { color: white; }
+.isOpen-true.minor.control .summary { background-color: var(--color-yellow); }
+.isOpen-true.minor .summary .impact { color: white; }
 
+.info.control .impact { color: var(--color-info); }
+.info .summary:hover { background-color: var(--color-info); }
+.info .summary:hover .impact { color: white; }
+.isOpen-true.info.control .summary { background-color: var(--color-info); }
+.isOpen-true.info .summary .impact { color: white; }
+
+.control {
+  border: 1px solid #eee;
+  border-bottom: none;
+  background: white;
+}
 .code {
   background-color: #444;
   color: white;
@@ -65,14 +80,15 @@ pre {
   white-space: pre-wrap;
 }
 
-.control .summary {
+.summary {
+  padding: 10px 15px;
   cursor: pointer;
   display: grid;
   grid-template-columns: auto 6em;
 }
 
 .body {
-  padding: 10px 0 0 0;
+  padding: 10px 15px;
 }
 
 .isOpen-false .body {
