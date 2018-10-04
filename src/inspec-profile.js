@@ -3,9 +3,26 @@ import './inspec-control.js';
 
 class InspecProfile extends LitElement {
   render() {
-    const { profile } = this;
+    const { profile, error } = this;
+
+    let body = '';
     if(profile == null) {
-      return html`No profile provided. <input @blur="${e => this.parseProfile(this, e)}">`
+      body = html`<div class=empty>No profile provided. Please paste a JSON.</div>`
+    } else {
+      body = html`
+        <div class="top">
+          <h2>${profile.title}</h2>
+          <span class=version>v${profile.version}</span>
+        </div>
+        <div class="controls">
+          ${profile.controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
+        </div>
+      `
+    }
+
+    let errorEl = ''
+    if(error != null) {
+      errorEl = html`<div class=error>${error}</div>`
     }
 
     return html`
@@ -24,34 +41,34 @@ input {
 }
 </style>
 
-<input @blur="${e => this.parseProfile(this, e)}">
-<div class="top">
-  <h2>${profile.title}</h2>
-  <span class=version>v${profile.version}</span>
-</div>
-<div class="controls">
-  ${profile.controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
-</div>
+${errorEl}
+<input @keyup="${e => this.parseProfile(this, e)}">
+${body}
 `
   }
 
   static get properties() {
     return {
       profile: { type: Object },
+      error: { type: String },
     }
   }
 
   parseProfile(src, e) {
     let v = e.target.value;
-    // e.target.value = '';
+    if(v == '') return;
+
     try {
       let nu = JSON.parse(v);
-      src.profile = nu
+      src.profile = nu;
+      this.error = null;
       console.log("profile changed")
     } catch(error) {
-      console.error("Not a valid profile")
+      console.error("not a valid profile")
       console.error(v)
+      this.error = "Failed to parse profile";
     }
+    e.target.value = '';
   }
 }
 window.customElements.define('inspec-profile', InspecProfile);
