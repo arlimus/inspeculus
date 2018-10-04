@@ -5,6 +5,8 @@ Web components to view InSpec profiles.
 See the live demo ... 🚧 🚧 🚧
 
 
+![Screenshot](/screenshot.png?raw=true "Screenshot")
+
 ## Development
 
 Requirements:
