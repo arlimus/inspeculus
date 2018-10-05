@@ -43,6 +43,21 @@ h2 {
 }
 input {
   overflow: hidden;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 100px;
+  border: none;
+  background: #444;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  caret-color: #444;
+}
+input:focus {
+  border: 1px solid #89e4a1;
+  /* background: #89e4a1; */
+  caret-color: #444;
+  outline: none;
 }
 .controls {
   border-bottom: 1px solid #eee;
@@ -73,6 +88,8 @@ ${body}
       src.profile = nu;
       this.error = null;
       console.log("profile changed")
+      src.focus()
+      src.blur()
     } catch(error) {
       console.error("not a valid profile")
       console.error(v)
