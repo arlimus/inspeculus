@@ -1,5 +1,6 @@
 import { LitElement, html } from '@polymer/lit-element';
 import './inspec-control.js';
+import './paste-icon.js';
 
 class InspecProfile extends LitElement {
   render() {
@@ -7,7 +8,11 @@ class InspecProfile extends LitElement {
 
     let body = '';
     if(profile == null) {
-      body = html`<div class=empty>No profile provided. Please paste a JSON.</div>`
+      body = html`
+        <div class="top">
+          No profile provided.
+        </div>
+      `
     } else {
       body = html`
         <div class="top">
@@ -22,7 +27,11 @@ class InspecProfile extends LitElement {
 
     let inputEl = ''
     if(enableInput) {
-      inputEl = html`<input @keyup="${e => this.parseProfile(this, e)}">`
+      inputEl = html`
+        <paste-icon>
+          <input @keyup="${e => this.parseProfile(this, e)}">
+        </paste-icon>
+      `
     }
 
     let errorEl = ''
@@ -41,24 +50,18 @@ h2 {
   display: inline-block;
   padding: 0 8px;
 }
+
 input {
   overflow: hidden;
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 100px;
+  width: 0;
+  height: 0;
   border: none;
-  background: #444;
   padding: 0;
   margin: 0;
-  cursor: pointer;
-  caret-color: #444;
-}
-input:focus {
-  border: 1px solid #89e4a1;
-  /* background: #89e4a1; */
-  caret-color: #444;
+  color: transparent;
   outline: none;
 }
+
 .controls {
   border-bottom: 1px solid #eee;
   margin-bottom: 25px;
