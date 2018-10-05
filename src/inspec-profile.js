@@ -33,6 +33,10 @@ class InspecProfile extends LitElement {
           ${inputEl}
         </div>
         <div class="controls">
+          <div class="header">
+            <div>NAME</div>
+            <div>IMPACT</div>
+          </div>
           ${profile.controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
         </div>
       `
@@ -84,6 +88,18 @@ input {
 .controls {
   border-bottom: 1px solid #eee;
   margin-bottom: 25px;
+}
+.controls .header {
+  background: #444;
+  color: white;
+  display: grid;
+  grid-template-columns: auto 6em;
+  padding: 8px 15px;
+}
+.controls .header > div {
+  font-size: 0.8em;
+  letter-spacing: 3px;
+  font-weight: bold;
 }
 </style>
 
