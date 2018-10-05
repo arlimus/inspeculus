@@ -4,13 +4,17 @@ import './paste-icon.js';
 
 class InspecProfile extends LitElement {
   render() {
-    const { profile, error, enableInput } = this;
+    const { profile, error, enableInput, search } = this;
+
+    const searchChanged = (e) => {
+      this.search = e.target.value;
+    }
 
     let inputEl = ''
     if(enableInput) {
       inputEl = html`
         <paste-icon>
-          <input @keyup="${e => this.parseProfile(this, e)}">
+          <input class="ghost" @keyup="${e => this.parseProfile(this, e)}">
         </paste-icon>
       `
     }
@@ -31,6 +35,9 @@ class InspecProfile extends LitElement {
             <span class=version>v${profile.version}</span>
           </div>
           ${inputEl}
+          <div class="search-box">
+            <input class="search" placeholder="Search controls..." @keyup="${searchChanged}">
+          </div>
         </div>
         <div class="controls">
           <div class="header">
@@ -74,7 +81,22 @@ h2 {
   margin: 0;
 }
 
-input {
+.search-box {
+  padding: 0 52px 0 0;
+}
+.search {
+  padding: 10px 25px;
+  margin: 5px 0 15px 0;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  width: 100%;
+}
+.search:focus {
+  outline: none;
+  border-color: #14a9ac;
+}
+
+input.ghost {
   overflow: hidden;
   width: 0;
   height: 0;
@@ -113,6 +135,7 @@ ${body}
       profile: { type: Object },
       error: { type: String },
       enableInput: { type: Boolean },
+      search: { type: String },
     }
   }
 
