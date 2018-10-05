@@ -6,6 +6,14 @@ class InspecProfile extends LitElement {
   render() {
     const { profile, error, enableInput, search } = this;
 
+    let controls = (profile || {}).controls
+    if(search != null) {
+      const gSearch = search.toLocaleLowerCase()
+      controls = profile.controls.filter((c) => {
+        return c.code.toLocaleLowerCase().includes(gSearch)
+      })
+    }
+
     const searchChanged = (e) => {
       this.search = e.target.value;
     }
@@ -44,7 +52,7 @@ class InspecProfile extends LitElement {
             <div>NAME</div>
             <div>IMPACT</div>
           </div>
-          ${profile.controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
+          ${controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
         </div>
       `
     }
