@@ -18,24 +18,42 @@ class PasteIcon extends LitElement {
 .clickable { cursor: pointer; }
 .input {
   display: flex;
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
 }
-.input mwc-icon {
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
+mwc-icon {
+  width: 100px;
+  height: 100px;
+  font-size: 24px;
   display: inline-block;
   margin: 0;
   padding: 0;
   color: white;
   text-align: center;
-  line-height: 48px;
+  line-height: 98px;
   position: absolute;
 }
-.input .circle {
-  width: 50px;
-  height: 50px;
+.selected-true mwc-icon {
+  display: none;
+}
+.ctrl-v {
+  display: none;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  position: absolute;
+  line-height: 100px;
+  font-size: 0.7em;
+  /* letter-spacing: 1px; */
+  font-weight: bold;
+  color: white;
+}
+.selected-true .ctrl-v {
+  display: block;
+}
+.circle {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: none;
   background: #444;
@@ -45,7 +63,7 @@ class PasteIcon extends LitElement {
   animation: scaleIn 2s infinite cubic-bezier(.36, .11, .89, .32);
 }
 .selected-true .circle {
-  background: #89e4a1;
+  background: #14a9ac;
 }
 @keyframes scaleIn {
   from {
@@ -53,7 +71,7 @@ class PasteIcon extends LitElement {
     opacity: .5;
   }
   to {
-    transform: scale(1.5, 1.5);
+    transform: scale(1.1, 1.1);
     opacity: 0;
   }
 }
@@ -64,10 +82,11 @@ class PasteIcon extends LitElement {
   @focusout="${unblur}"
 >
   <slot></slot>
-  <mwc-icon>keyboard_capslock</mwc-icon>
+  <div class="circle" style="animation-delay: -0.6s"></div>
+  <div class="circle" style="animation-delay: -0.3s"></div>
   <div class="circle" style="animation-delay: 0s"></div>
-  <div class="circle" style="animation-delay: 0.3s"></div>
-  <div class="circle" style="animation-delay: 0.6s"></div>
+  <mwc-icon>create</mwc-icon>
+  <div class="ctrl-v">CTRL + V</div>
 </div>
 `
   }

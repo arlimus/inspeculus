@@ -6,31 +6,35 @@ class InspecProfile extends LitElement {
   render() {
     const { profile, error, enableInput } = this;
 
-    let body = '';
-    if(profile == null) {
-      body = html`
-        <div class="top">
-          No profile provided.
-        </div>
-      `
-    } else {
-      body = html`
-        <div class="top">
-          <h2>${profile.title}</h2>
-          <span class=version>v${profile.version}</span>
-        </div>
-        <div class="controls">
-          ${profile.controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
-        </div>
-      `
-    }
-
     let inputEl = ''
     if(enableInput) {
       inputEl = html`
         <paste-icon>
           <input @keyup="${e => this.parseProfile(this, e)}">
         </paste-icon>
+      `
+    }
+
+    let body = '';
+    if(profile == null) {
+      body = html`
+        <div class="top">
+          <div class="header"><h2>No profile provided.</h2></div>
+          ${inputEl}
+        </div>
+      `
+    } else {
+      body = html`
+        <div class="top">
+          <div class="header">
+            <h2>${profile.title}</h2>
+            <span class=version>v${profile.version}</span>
+          </div>
+          ${inputEl}
+        </div>
+        <div class="controls">
+          ${profile.controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
+        </div>
       `
     }
 
@@ -46,9 +50,24 @@ class InspecProfile extends LitElement {
   display: inline-block;
   margin-left: 1em;
 }
+
+.top {
+  position: relative;
+}
+.top .header {
+  line-height: 100px;
+  width: 100%;
+}
+paste-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 h2 {
   display: inline-block;
   padding: 0 8px;
+  margin: 0;
 }
 
 input {
@@ -69,7 +88,6 @@ input {
 </style>
 
 ${errorEl}
-${inputEl}
 ${body}
 `
   }
