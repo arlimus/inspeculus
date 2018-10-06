@@ -64,8 +64,19 @@ mwc-icon {
 }
 .selected-true .circle {
   background: #14a9ac;
+  animation: scaleInBig 2s infinite cubic-bezier(.36, .11, .89, .32);
 }
 @keyframes scaleIn {
+  from {
+    transform: scale(.4, .4);
+    opacity: .5;
+  }
+  to {
+    transform: scale(0.5, 0.5);
+    opacity: 0;
+  }
+}
+@keyframes scaleInBig {
   from {
     transform: scale(.5, .5);
     opacity: .5;

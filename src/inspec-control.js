@@ -76,6 +76,7 @@ a {
 .isOpen-true.control {
   border: 2px solid white;
   border-radius: 3px;
+  margin: -1px;
   margin-bottom: 15px;
 }
 .isOpen-true .summary {
