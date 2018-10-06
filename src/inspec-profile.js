@@ -98,6 +98,8 @@ h2 {
   border-radius: 5px;
   border: 1px solid #eee;
   width: 100%;
+  background: white;
+  color: black;
 }
 .search:focus {
   outline: none;
