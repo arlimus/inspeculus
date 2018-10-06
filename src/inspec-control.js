@@ -17,6 +17,41 @@ class InspecControl extends LitElement {
     let code = hljs.highlight("ruby", control.code).value;
     let codeEL = document.createElement("code");
     codeEL.innerHTML = code;
+
+    let refs = ''
+    if(control.refs != null && control.refs.length > 0) {
+      if(control.refs.length === 1) {
+        const ref = control.refs[0]
+        refs = html`
+        <div class="refs">
+          See: <a target="_blank" href="${ref.url}">${ref.ref}</a>
+        </div>
+        `
+      } else {
+        refs = html`
+        <div class="refs">
+          See: <ul>
+          ${contro.refs.map((ref) => html`
+            <li><a target="_blank" href="${ref.url}">${ref.ref}</a></li>
+          `)}
+          </ul>
+        </div>
+        `
+      }
+    }
+
+    let tags = ''
+    if(control.tags != null && Object.keys(control.tags).length > 0) {
+      tags = html`
+      <div class="tags">
+      ${Object.keys(control.tags).map((k) => {
+        let v = control.tags[k];
+        if(v == null) return html`<div class="tag">${k}</div>`
+        return html`<div class="tag">${k}:${v}</div>`
+      })}
+      </div>
+      `
+    }
   
     return html`
 ${hljsTheme}
@@ -26,6 +61,12 @@ ${hljsTheme}
   --color-orange: #926BE7;
   --color-yellow: #8db5e6;
   --color-info: #666666;
+  --color-main: #14a9ac;
+}
+
+a {
+  color: var(--color-main);
+  text-decoration: none;
 }
 
 .summary:hover {
@@ -86,6 +127,24 @@ pre {
   font-family: monospace;
 }
 
+ul {
+  margin: 0 0 1em 0;
+}
+.refs, .tags {
+  margin: 1.5em 0;
+}
+.tag {
+  display: inline-block;
+  background: #444;
+  color: white;
+  font-size: 0.7em;
+  padding: 2px 10px 3px 10px;
+  border-radius: 1em;
+}
+.tag:before {
+  content: '#';
+}
+
 .summary {
   padding: 10px 15px;
   cursor: pointer;
@@ -110,6 +169,7 @@ pre {
   </div>
   <div class="body">
     <div class="description">${control.desc}</div>
+    ${refs} ${tags}
     <div class="code">
 <pre>${codeEL}</pre>
     </div>
