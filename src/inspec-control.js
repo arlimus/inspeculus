@@ -69,7 +69,7 @@ a {
   text-decoration: none;
 }
 
-.summary:hover {
+.summary:hover, .summary:hover .id {
   color: white;
 }
 
@@ -146,6 +146,11 @@ ul {
   content: '#';
 }
 
+.id {
+  margin-top: -0.2em;
+  font-size: 0.7em;
+  color: #999;
+}
 .summary {
   padding: 10px 15px;
   cursor: pointer;
@@ -167,6 +172,7 @@ ul {
   >
     <div class="title">${control.title}</div>
     <div class="impact">${imapctCls} (${impactNum})</div>
+    <div class="id">${control.id}</div>
   </div>
   <div class="body">
     <div class="description">${control.desc}</div>
