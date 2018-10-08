@@ -69,7 +69,10 @@ a {
   text-decoration: none;
 }
 
-.summary:hover, .summary:hover .id {
+.summary .id {
+  color: inherit;
+}
+.summary:hover {
   color: white;
 }
 
