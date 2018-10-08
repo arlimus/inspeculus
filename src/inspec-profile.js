@@ -2,16 +2,44 @@ import { LitElement, html } from '@polymer/lit-element';
 import './inspec-control.js';
 import './paste-icon.js';
 
+const nextSortState = {
+  "": "desc",
+  "desc": "asc",
+  "asc": "",
+}
+
+// Sort helpers for controls
+const byID = (a, b) => (a.id > b.id) ? -1 : (a.id < b.id) ? 1 : 0;
+const byImpact = (a, b) => (a.impact > b.impact) ? 1 : (a.impact < b.impact) ? -1 : byID(a, b);
+
 class InspecProfile extends LitElement {
   render() {
-    const { profile, error, enableInput, search } = this;
+    const { profile, error, enableInput, search, sort } = this;
 
-    let controls = (profile || {}).controls
+    let controls = (profile || {}).controls || []
     if(search != null) {
       const gSearch = search.toLocaleLowerCase()
       controls = profile.controls.filter((c) => {
         return c.code.toLocaleLowerCase().includes(gSearch)
       })
+    }
+
+    const toggleSort = () => {
+      this.sort = nextSortState[sort];
+    }
+
+    let sortIcon
+    if(sort === "asc") {
+      controls.sort(byImpact)
+      sortIcon = html`<div class="sort" @click="${toggleSort}"><mwc-icon>expand_less</mwc-icon></div>`;
+    }
+    if(sort === "desc") {
+      controls.sort((a,b) => byImpact(b, a))
+      sortIcon = html`<div class="sort" @click="${toggleSort}"><mwc-icon>expand_more</mwc-icon></div>`;
+    }
+    if(sort === "") {
+      controls.sort((a,b) => byID(b, a))
+      sortIcon = html`<div class="sort" @click="${toggleSort}"><mwc-icon>unfold_more</mwc-icon></div>`;
     }
 
     const searchChanged = (e) => {
@@ -50,7 +78,7 @@ class InspecProfile extends LitElement {
         <div class="controls">
           <div class="header">
             <div>NAME</div>
-            <div>IMPACT</div>
+            <div>IMPACT ${sortIcon}</div>
           </div>
           ${controls.map(x => html`<inspec-control .control="${x}"></inspec-control>`)}
         </div>
@@ -105,6 +133,13 @@ h2 {
   outline: none;
   border-color: #14a9ac;
 }
+.sort {
+  display: inline-block;
+  cursor: pointer;
+}
+.sort mwc-icon {
+  font-size: 0.8em;
+}
 
 input.ghost {
   overflow: hidden;
@@ -125,7 +160,7 @@ input.ghost {
   background: #444;
   color: white;
   display: grid;
-  grid-template-columns: auto 6em;
+  grid-template-columns: auto 7em;
   padding: 8px 15px;
 }
 .controls .header > div {
@@ -146,7 +181,13 @@ ${body}
       error: { type: String },
       enableInput: { type: Boolean },
       search: { type: String },
+      sort: { type: String },
     }
+  }
+
+  constructor() {
+    super()
+    this.sort = "";
   }
 
   parseProfile(src, e) {
