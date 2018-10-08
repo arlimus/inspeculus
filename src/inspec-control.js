@@ -1,6 +1,10 @@
 import { LitElement, html } from '@polymer/lit-element';
 import { hljsTheme } from './hljs.theme.js';
 
+import 'highlight.js/lib/highlight.js';
+// Workaround for NPM packaging of HLJS languages:
+import './hljs.ruby.es6module.js';
+
 function impactClass(impact) {
   if(impact >= 0.7) return 'critical';
   if(impact >= 0.4) return 'major';
