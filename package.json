@@ -14,12 +14,7 @@
   "dependencies": {
     "@material/mwc-icon": "^0.3.0",
     "@polymer/lit-element": "^0.6.1",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
-    "pwa-helpers": "^0.8.4",
-    "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0",
-    "reselect": "^3.0.1",
-    "stage0": "^0.0.11"
+    "@webcomponents/webcomponentsjs": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -32,8 +27,6 @@
     "mocha": "^5.2.0",
     "pixelmatch": "^4.0.2",
     "polymer-cli": "^1.8.0",
-    "prpl-server": "^1.2.0",
-    "puppeteer": "^1.5.0",
     "uglify-es": "^3.3.9",
     "wct-browser-legacy": "^1.0.1"
   }
