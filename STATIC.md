@@ -19,7 +19,7 @@ Step 2: Add static loaders to your html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.0.2/webcomponents-loader.js"></script>
 <script>
-  requirejs(["src/inspec-profile.js"]);
+  requirejs(["build/es6-bundled/src/inspec-profile.js"]);
 </script>
 ```
 
