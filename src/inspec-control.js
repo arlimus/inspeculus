@@ -1,7 +1,6 @@
 import { LitElement, html } from '@polymer/lit-element';
 import { hljsTheme } from './hljs.theme.js';
 
-import 'highlight.js/lib/highlight.js';
 // Workaround for NPM packaging of HLJS languages:
 import './hljs.ruby.es6module.js';
 

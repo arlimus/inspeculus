@@ -1,3 +1,5 @@
+import 'highlight.js/lib/highlight.js';
+
 hljs.registerLanguage("ruby", function(hljs) {
   var RUBY_METHOD_RE = '[a-zA-Z_]\\w*[!?=]?|[-+~]\\@|<<|>>|=~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~`|]|\\[\\]=?';
   var RUBY_KEYWORDS = {
